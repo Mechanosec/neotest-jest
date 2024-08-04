@@ -269,19 +269,15 @@ local function get_default_strategy_config(strategy, command, cwd)
   local config = {
     dap = function()
       return {
-       type = "pwa-node",
-    request = "launch",
-    name = "Debug Jest Tests",
-    -- trace = true, -- include debugger info
-    runtimeExecutable = "node",
-    runtimeArgs = {
-      "./node_modules/jest/bin/jest.js",
-      "--runInBand",
-    },
-    rootPath = "${workspaceFolder}",
-    cwd = "${workspaceFolder}",
-    console = "integratedTerminal",
-    internalConsoleOptions = "neverOpen",
+        name = "Debug Jest Tests",
+        type = "pwa-node",
+        request = "launch",
+        args = { unpack(command, 2) },
+        runtimeExecutable = command[1],
+        console = "integratedTerminal",
+        internalConsoleOptions = "neverOpen",
+        rootPath = "${workspaceFolder}",
+        cwd = cwd or "${workspaceFolder}",
       }
     end,
   }
